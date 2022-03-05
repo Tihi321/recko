@@ -1,0 +1,42 @@
+{
+  "title": "Recko",
+  "home": {
+    "message": "Welcome to Recko",
+    "labels": {
+      "rules": "Rules",
+      "settings": "Settings"
+    }
+  },
+  "game_menu": {
+    "start_game": "New game",
+    "end_game": "End",
+    "restart_game": "Restart"
+  },
+  "modal": {
+    "labels": {
+      "close": "Close",
+      "reveal": "Reveal table (also click outside of window)",
+      "save": "Save"
+    },
+    "info": {
+      "title": "Info"
+    },
+    "settings": {
+      "title": "Settings",
+      "labels": {
+        "language": "Language",
+        "theme": "Theme"
+      },
+      "sub_labels": {
+        "theme": {
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "languages": {
+          "croatian": "Croatian",
+          "english": "English"
+        }
+      }
+    }
+  }
+}

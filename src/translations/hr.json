@@ -1,0 +1,42 @@
+{
+  "title": "Recko",
+  "home": {
+    "message": "Dobrodošli ue Recko",
+    "labels": {
+      "rules": "Pravila igre",
+      "settings": "Opcije"
+    }
+  },
+  "game_menu": {
+    "start_game": "Nova igra",
+    "end_game": "Završi",
+    "restart_game": "Počni ponovo"
+  },
+  "modal": {
+    "labels": {
+      "close": "Zatvori",
+      "reveal": "Prikaži tablicu (također možete kliknuti izvan prozora)",
+      "save": "Spremi"
+    },
+    "info": {
+      "title": "Info"
+    },
+    "settings": {
+      "title": "Opcije",
+      "labels": {
+        "language": "Jezik",
+        "theme": "Tema"
+      },
+      "sub_labels": {
+        "theme": {
+          "light": "Svijetla",
+          "dark": "Tamna"
+        },
+        "languages": {
+          "croatian": "Hrvatski",
+          "english": "Engleski"
+        }
+      }
+    }
+  }
+}

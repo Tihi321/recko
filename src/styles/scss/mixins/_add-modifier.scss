@@ -1,0 +1,7 @@
+@mixin add-modifier($modifier, $value, $suffix) {
+  @if $suffix {
+    --#{$modifier}-#{$suffix}: #{$value};
+  } @else {
+    --#{$modifier}: #{$value};
+  }
+}

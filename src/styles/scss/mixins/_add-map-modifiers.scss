@@ -1,0 +1,5 @@
+@mixin add-map-modifiers($map, $key, $suffix) {
+  @each $modifier, $value in map-get-strict($map, $key) {
+    @include add-modifier($modifier, $value, $suffix);
+  }
+}

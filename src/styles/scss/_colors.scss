@@ -1,0 +1,84 @@
+$light-color: rgba(255, 255, 255, 1);
+$dark-color: rgba(0, 0, 0, 1);
+$ebony-clay-color: rgba(35, 39, 57, 1);
+$cerulean-color: rgba(3, 169, 244, 1);
+$carribean-color: rgba(6, 214, 160, 1);
+$orange-color: rgba(255, 152, 0, 1);
+$pomegranate-color: rgba(244, 67, 54, 1);
+$vivid-color: rgba(255, 193, 7, 1);
+$martinique-color: rgba(54, 54, 86, 1);
+$regent-color: rgba(123, 140, 149, 1);
+
+$orange-semi-color: rgba(255, 152, 0, 0.6);
+$cerulean-semi-color: rgba(3, 169, 244, 0.6);
+$carribean-semi-color: rgba(6, 214, 160, 0.6);
+$dusty-semi-color: rgba(153, 153, 153, 0.6);
+$dove-semi-color: rgba(102, 102, 102, 0.6);
+
+$theme-colors: (
+  light: (
+    focus: $light-color,
+    primary: $ebony-clay-color,
+    tertiary: $cerulean-color,
+    neutral: $regent-color,
+    tertiary-semi: $cerulean-semi-color,
+    neutral-semi: $dove-semi-color,
+  ),
+  dark: (
+    focus: $ebony-clay-color,
+    primary: $light-color,
+    tertiary: $orange-color,
+    neutral: $martinique-color,
+    tertiary-semi: $orange-semi-color,
+    neutral-semi: $dusty-semi-color,
+  ),
+  libraries: (
+    ts-components: (
+      ts-options: var(--primary-color),
+      ts-options-bg: var(--focus-color),
+      ts-options-hover: var(--tertiary-color),
+      ts-tooltip: var(--dark-color),
+      ts-tooltip-bg: var(--light-color),
+    ),
+  ),
+  shared: (
+    light: $light-color,
+    dark: $dark-color,
+    vivid: $vivid-color,
+    success: $carribean-color,
+    success-semi: $carribean-semi-color,
+    warn: $orange-color,
+    failure: $pomegranate-color,
+  ),
+);
+
+$shadow-color-filter: drop-shadow(2px 4px 3px var(--dark-color));
+
+$bg-color: var(--focus-color);
+$font-color: var(--primary-color);
+$link-color: var(--tertiary-color);
+
+$backdrop-bg-color: var(--neutral-semi-color);
+
+$modal-window-bg-color: var(--focus-color);
+$modal-window-border-color: var(--primary-color);
+$modal-window-items-color: var(--light-color);
+$modal-window-header-bg-color: var(--neutral-color);
+$modal-window-button-bg-color: var(--success-color);
+
+$scrollbar-bg-color: var(--focus-color);
+$scrollbar-thumb-color: var(--tertiary-color);
+$scrollbar-thumb-hover-color: var(--tertiary-semi-color);
+
+$button-color: var(--primary-color);
+$button-hover-color: var(--tertiary-color);
+
+$logo-color: var(--primary-color);
+
+$star-icon-color: var(--vivid-color);
+$default-icon-color: var(--primary-color);
+
+$colored-button-color: var(--light-color);
+$failure-button-bg-color: var(--failure-color);
+$warn-button-bg-color: var(--warn-color);
+$success-button-bg-color: var(--success-color);

@@ -1,0 +1,21 @@
+$font-family: "Roboto", sans-serif;
+
+$font-variables: (
+  mobile: (
+    huge: 50px,
+    big: 32px,
+    normal: 24px,
+    medium: 20px,
+    default: 18px,
+    small: 14px,
+    tiny: 10px,
+  ),
+);
+
+$huge-font-size: var(--huge-font-size);
+$big-font-size: var(--big-font-size);
+$normal-font-size: var(--normal-font-size);
+$medium-font-size: var(--medium-font-size);
+$default-font-size: var(--default-font-size);
+$small-font-size: var(--small-font-size);
+$tiny-font-size: var(--tiny-font-size);
