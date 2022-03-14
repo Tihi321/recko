@@ -5,13 +5,15 @@
   import ThemeContainer from "./components/common/ThemeContainer.svelte";
   import Container from "./components/common/Container.svelte";
   import Header from "./components/header/Header.svelte";
-  import { useLocalSettings, useSettings } from "./hooks";
+  import { useLocalSettings, useSettings, useApi } from "./hooks";
 
+  const { fetchApiWordsData } = useApi();
   const { setLocalStorageState } = useLocalSettings();
   const { settings } = useSettings();
 
   onMount(() => {
     setLocalStorageState();
+    fetchApiWordsData($settings.language);
   });
 </script>
 

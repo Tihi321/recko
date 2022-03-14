@@ -1,4 +1,13 @@
+import { rangeMap } from "tsl-utils";
+
 import { game } from "../store/game";
+
+const attemptyObj = rangeMap(6, () => ({
+  word: "",
+  letters: [],
+  locked: false,
+  success: false,
+}));
 
 export const useGame = () => {
   const { set, update } = game;
@@ -6,29 +15,32 @@ export const useGame = () => {
     update((state) => ({
       ...state,
       started: true,
+      data: {
+        word: "Avokado",
+        type: "imenica",
+      },
+      attempts: attemptyObj,
+      attempt: 0,
     }));
   };
 
   const setGameEnd = () => {
-    set({ attempts: 0, started: false });
+    set({ started: false, data: undefined, attempts: [], attempt: 0 });
   };
 
   const resetGame = () => {
     update((state) => ({
       ...state,
-      attempts: 0,
-    }));
-  };
-
-  const addAttempt = () => {
-    update((state) => ({
-      ...state,
-      attempts: state.attempts + 1,
+      data: {
+        word: "Avokado",
+        type: "imenica",
+      },
+      attempts: attemptyObj,
+      attempt: 0,
     }));
   };
 
   return {
-    addAttempt,
     startGame: setGameStart,
     endGame: setGameEnd,
     resetGame,
