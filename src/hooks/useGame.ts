@@ -1,13 +1,17 @@
 import { rangeMap } from "tsl-utils";
 
+import { EGame } from "../constants";
 import { game } from "../store/game";
 
-const attemptyObj = rangeMap(6, () => ({
-  word: "",
-  letters: [],
-  locked: false,
-  success: false,
-}));
+const attemptsArray = rangeMap(EGame.NumberOfAttempts, () => []);
+
+const gameResetState = {
+  data: {
+    word: "Avokado",
+    type: "imenica",
+  },
+  attempts: attemptsArray,
+};
 
 export const useGame = () => {
   const { set, update } = game;
@@ -15,28 +19,18 @@ export const useGame = () => {
     update((state) => ({
       ...state,
       started: true,
-      data: {
-        word: "Avokado",
-        type: "imenica",
-      },
-      attempts: attemptyObj,
-      attempt: 0,
+      ...gameResetState,
     }));
   };
 
   const setGameEnd = () => {
-    set({ started: false, data: undefined, attempts: [], attempt: 0 });
+    set({ started: false, data: undefined, attempts: undefined });
   };
 
   const resetGame = () => {
     update((state) => ({
       ...state,
-      data: {
-        word: "Avokado",
-        type: "imenica",
-      },
-      attempts: attemptyObj,
-      attempt: 0,
+      ...gameResetState,
     }));
   };
 

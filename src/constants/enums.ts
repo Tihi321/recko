@@ -1,3 +1,7 @@
+export enum EGame {
+  NumberOfAttempts = 6,
+}
+
 export enum EThemes {
   Dark = "Dark",
   Light = "Light",

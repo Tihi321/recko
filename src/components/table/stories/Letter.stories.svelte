@@ -11,7 +11,6 @@
   component={Letter}
   argTypes={{
     letter: { defaultValue: "h", control: "text" },
-    show: { defaultValue: false, control: "boolean" },
     success: { defaultValue: false, control: "boolean" },
     secondary: { defaultValue: false, control: "boolean" },
     neutral: { defaultValue: false, control: "boolean" },

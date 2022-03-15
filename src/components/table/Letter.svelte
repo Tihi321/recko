@@ -1,13 +1,12 @@
 <script lang="ts">
   export let letter: string;
-  export let show: boolean = false;
   export let success: boolean = false;
   export let secondary: boolean = false;
   export let neutral: boolean = false;
 </script>
 
 <div class="letter" class:success class:secondary class:neutral>
-  {show ? letter : ""}
+  {letter}
 </div>
 
 <style lang="scss">
