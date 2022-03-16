@@ -1,6 +1,6 @@
 import { generateSelector } from "tsl-utils";
 
-import { getWordleData } from "../selectors";
+import { getGameWordType, getWordleData } from "../selectors";
 import type { TGameStore } from "../types";
 
 export const useWordle = () => {
@@ -8,8 +8,13 @@ export const useWordle = () => {
     const gameStateSelector = generateSelector(gameState);
     return getWordleData(gameStateSelector);
   };
+  const getWordType = (gameState: TGameStore) => {
+    const gameStateSelector = generateSelector(gameState);
+    return getGameWordType(gameStateSelector);
+  };
 
   return {
     generateWordleData,
+    getWordType,
   };
 };

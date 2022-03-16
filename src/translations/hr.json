@@ -9,6 +9,7 @@
   },
   "game_menu": {
     "start_game": "Nova igra",
+    "start_daily_game": "Dnevni izazov",
     "end_game": "Završi",
     "restart_game": "Počni ponovo"
   },

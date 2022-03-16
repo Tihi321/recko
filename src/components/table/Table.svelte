@@ -26,6 +26,6 @@
   }
 
   .letter {
-    padding: 4px;
+    margin: 2px;
   }
 </style>

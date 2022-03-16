@@ -1,43 +1,60 @@
-import { rangeMap } from "tsl-utils";
+import { dispatchEvent, generateSelector } from "tsl-utils";
 
-import { EGame } from "../constants";
+import { EEvents } from "../constants";
+import { getDailyChallengeState, getNewAttempts, getRandomApiWord } from "../selectors";
 import { game } from "../store/game";
-
-const attemptsArray = rangeMap(EGame.NumberOfAttempts, () => []);
-
-const gameResetState = {
-  data: {
-    word: "Avokado",
-    type: "imenica",
-  },
-  attempts: attemptsArray,
-};
+import { generateEmptyAttemptsArray } from "../utils";
 
 export const useGame = () => {
   const { set, update } = game;
-  const setGameStart = () => {
-    update((state) => ({
-      ...state,
+
+  const setDailyStart = (apiState) => {
+    const apiStateSelector = generateSelector(apiState);
+    set({
       started: true,
-      ...gameResetState,
-    }));
+      daily: true,
+      attempts: generateEmptyAttemptsArray(),
+      data: getDailyChallengeState(apiStateSelector),
+    });
+  };
+  const setGameStart = (apiState) => {
+    const apiStateSelector = generateSelector(apiState);
+    set({
+      started: true,
+      daily: false,
+      attempts: generateEmptyAttemptsArray(),
+      data: getRandomApiWord(apiStateSelector),
+    });
   };
 
   const setGameEnd = () => {
-    set({ started: false, data: undefined, attempts: undefined });
+    set({ started: false, daily: false, data: undefined, attempts: undefined });
   };
 
-  const resetGame = () => {
+  const addLetter = (gameState, apiState, letter) => {
+    const gameStateSelector = generateSelector(gameState);
+    const apiStateSelector = generateSelector(apiState);
+    const { attempts, notWord } = getNewAttempts(gameStateSelector, apiStateSelector, letter);
+
+    if (notWord) {
+      dispatchEvent({
+        name: EEvents.NotRealWord,
+        params: notWord,
+        element: document as unknown as Element,
+      });
+    }
     update((state) => ({
       ...state,
-      ...gameResetState,
+      attempts,
     }));
   };
 
   return {
     startGame: setGameStart,
+    startDailyChallenge: setDailyStart,
     endGame: setGameEnd,
-    resetGame,
+    resetGame: setGameStart,
     game,
+    addLetter,
   };
 };

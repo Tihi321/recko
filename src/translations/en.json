@@ -9,6 +9,7 @@
   },
   "game_menu": {
     "start_game": "New game",
+    "start_daily_game": "Daily challenge",
     "end_game": "End",
     "restart_game": "Restart"
   },

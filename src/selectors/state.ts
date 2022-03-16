@@ -7,11 +7,20 @@ import { combineSelector } from "tsl-utils";
 export const getAttempts = (gameStateSelector) =>
   combineSelector(gameStateSelector, (state) => get(state, ["attempts"]));
 
+export const getDailyChallengeState = (apiStateSelector) =>
+  combineSelector(apiStateSelector, (state) => get(state, ["dailyChallenge"]));
+
+export const getApiWordsState = (apiStateSelector) =>
+  combineSelector(apiStateSelector, (state) => get(state, ["words"]));
+
 export const getWordState = (gameStateSelector) =>
   combineSelector(gameStateSelector, (state) => get(state, ["data"]));
 
-export const getWord = (gameStateSelector) =>
+export const getGameWord = (gameStateSelector) =>
   combineSelector(getWordState(gameStateSelector), (state) => get(state, ["word"]));
+
+export const getGameWordType = (gameStateSelector) =>
+  combineSelector(getWordState(gameStateSelector), (state) => get(state, ["type"]));
 
 export const getNumberOfAttempts = (gameStateSelector) =>
   combineSelector(getAttempts(gameStateSelector), (attempts) => attempts.length);
@@ -22,7 +31,12 @@ export const getAttemptedWords = (gameStateSelector) =>
   );
 
 export const getWordLength = (gameStateSelector) =>
-  combineSelector(getWord(gameStateSelector), (word) => word.length);
+  combineSelector(getGameWord(gameStateSelector), (word) => word.length);
+
+export const getApiWordsArray = (apiStateSelector) =>
+  combineSelector(getApiWordsState(apiStateSelector), (words) =>
+    map(words, (values) => get(values, ["word"]))
+  );
 
 export const getWordArray = (gameStateSelector) =>
-  combineSelector(getWord(gameStateSelector), (word) => split(word, ""));
+  combineSelector(getGameWord(gameStateSelector), (word) => split(word, ""));

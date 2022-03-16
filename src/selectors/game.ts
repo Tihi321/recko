@@ -1,20 +1,21 @@
 import find from "lodash/find";
-import get from "lodash/get";
 import includes from "lodash/includes";
 import indexOf from "lodash/indexOf";
 import isEqual from "lodash/isEqual";
-import { combineSelector, rangeMap } from "tsl-utils";
+import map from "lodash/map";
+import { combineSelector } from "tsl-utils";
 
+import { getRandomArrayItem } from "../utils";
 import {
+  getApiWordsArray,
+  getApiWordsState,
   getAttemptedWords,
   getAttempts,
-  getNumberOfAttempts,
-  getWord,
-  getWordArray,
+  getGameWord,
   getWordLength,
 } from "./state";
 
-const getCurrentRow = (gameStateSelector) =>
+export const getCurrentRow = (gameStateSelector) =>
   combineSelector(
     getAttempts(gameStateSelector),
     getWordLength(gameStateSelector),
@@ -25,45 +26,40 @@ const getCurrentRow = (gameStateSelector) =>
     }
   );
 
-const getIsSuccess = (gameStateSelector) =>
+export const getIsSuccess = (gameStateSelector) =>
   combineSelector(
     getAttemptedWords(gameStateSelector),
-    getWord(gameStateSelector),
+    getGameWord(gameStateSelector),
     (attemptedWords, gameWord) => Boolean(find(attemptedWords, (word) => isEqual(word, gameWord)))
   );
 
-const getWordleTableData = (gameStateSelector) =>
+export const getRandomApiWord = (apiStateSelector) =>
+  combineSelector(getApiWordsState(apiStateSelector), (words) => getRandomArrayItem(words));
+
+export const getNewAttempts = (gameStateSelector, apiStateSelector, letter) =>
   combineSelector(
-    getWordArray(gameStateSelector),
     getAttempts(gameStateSelector),
-    getNumberOfAttempts(gameStateSelector),
+    getCurrentRow(gameStateSelector),
     getWordLength(gameStateSelector),
-    getCurrentRow(gameStateSelector),
-    (wordArray, attempts, numberOfAttempts, wordLength, currentRow) =>
-      rangeMap(numberOfAttempts, (rowIndex: number) =>
-        rangeMap(wordLength, (letterIndex: number) => {
-          const isCurrentRow = isEqual(currentRow, rowIndex);
-          const letter = get(attempts, [rowIndex, letterIndex], "");
-          const success = isEqual(letter, get(wordArray, [letterIndex]));
-          const exist = includes(wordArray, letter);
+    getApiWordsArray(apiStateSelector),
+    (attempts, currentRow, wordLength, words) => {
+      let notWord = undefined;
+      const newAttempts = map(attempts, (values, index) => {
+        if (isEqual(currentRow, index)) {
+          const valuesWithLetter = [...values, letter];
+          const newWord = valuesWithLetter.join("");
+          if (isEqual(wordLength, valuesWithLetter.length) && !includes(words, newWord)) {
+            notWord = newWord;
+            return [];
+          }
 
-          return {
-            letter,
-            success: success && !isCurrentRow,
-            exist: !success && exist && !isCurrentRow,
-          };
-        })
-      )
-  );
-
-export const getWordleData = (gameStateSelector) =>
-  combineSelector(
-    getWordleTableData(gameStateSelector),
-    getCurrentRow(gameStateSelector),
-    getIsSuccess(gameStateSelector),
-    (wordleTableData, currentRow, success) => ({
-      table: wordleTableData,
-      currentRow,
-      success,
-    })
+          return valuesWithLetter;
+        }
+        return values;
+      });
+      return {
+        attempts: newAttempts,
+        notWord,
+      };
+    }
   );

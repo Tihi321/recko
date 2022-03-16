@@ -8,8 +8,9 @@ export type TSettingsStore = {
 
 export type TGameStore = {
   started: boolean;
-  data: any;
-  attempts: any;
+  daily: boolean;
+  data: TWordDetail;
+  attempts: string[][];
 };
 
 export type TApiStore = {

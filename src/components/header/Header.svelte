@@ -4,12 +4,12 @@
   import InfoIcon from "../icons/InfoIcon.svelte";
   import CogIcon from "../icons/CogIcon.svelte";
   import ColoredButton from "../common/ColoredButton.svelte";
-  import { useGame, useModals } from "../../hooks";
+  import { useGame, useModals, useApi } from "../../hooks";
   import { EModals } from "../../constants";
 
-  const { game, startGame } = useGame();
+  const { game, startGame, startDailyChallenge, endGame, resetGame } = useGame();
+  const { api } = useApi();
   const { openModal } = useModals();
-  const { endGame, resetGame } = useGame();
 
   const openSettingsModal = () => {
     openModal(EModals.Settings);
@@ -18,10 +18,6 @@
   const openInfoModal = () => {
     openModal(EModals.Info);
   };
-
-  function resetGameCallback() {
-    resetGame();
-  }
 </script>
 
 <header class="header">
@@ -30,18 +26,25 @@
     <ul class="menu">
       {#if !$game.started}
         <li class="menu-item">
-          <button class="start-button" on:click={startGame} on:click
+          <button class="start-button" on:click={() => startDailyChallenge($api)} on:click
+            >{$t("game_menu.start_daily_game")}</button
+          >
+        </li>
+        <li class="menu-item">
+          <button class="start-button" on:click={() => startGame($api)} on:click
             >{$t("game_menu.start_game")}</button
           >
         </li>
       {:else}
-        <li class="menu-item">
-          <ColoredButton
-            type="warn"
-            on:click={resetGameCallback}
-            title={$t("game_menu.restart_game")}
-          />
-        </li>
+        {#if !$game.daily}
+          <li class="menu-item">
+            <ColoredButton
+              type="warn"
+              on:click={() => resetGame($api)}
+              title={$t("game_menu.restart_game")}
+            />
+          </li>
+        {/if}
         <li class="menu-item">
           <ColoredButton type="failure" on:click={endGame} title={$t("game_menu.end_game")} />
         </li>

@@ -18,7 +18,6 @@
     background-color: $letter-bg-color;
     color: $letter-text-color;
     text-transform: uppercase;
-    cursor: default;
     border: 1px solid $letter-border-color;
   }
 

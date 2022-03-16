@@ -13,9 +13,7 @@
 
   onMount(() => {
     setLocalStorageState();
-
-    // uncomment
-    // fetchApiWordsData($settings.language);
+    fetchApiWordsData($settings.language);
   });
 </script>
 
