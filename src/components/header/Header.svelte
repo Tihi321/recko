@@ -1,6 +1,5 @@
 <script lang="ts">
   import { t } from "svelte-i18n";
-  import Logo from "../common/Logo.svelte";
   import InfoIcon from "../icons/InfoIcon.svelte";
   import CogIcon from "../icons/CogIcon.svelte";
   import ColoredButton from "../common/ColoredButton.svelte";
@@ -22,7 +21,7 @@
 
 <header class="header">
   <div class="container">
-    <div class="logo"><Logo /></div>
+    <button class="icon-button" on:click={openSettingsModal}><CogIcon /></button>
     <ul class="menu">
       {#if !$game.started}
         <li class="menu-item">
@@ -50,10 +49,7 @@
         </li>
       {/if}
     </ul>
-    <div class="icon-buttons">
-      <button class="icon-button" on:click={openSettingsModal}><CogIcon /></button>
-      <button class="icon-button" on:click={openInfoModal}><InfoIcon /></button>
-    </div>
+    <button class="icon-button" on:click={openInfoModal}><InfoIcon /></button>
   </div>
 </header>
 
@@ -70,9 +66,6 @@
     flex-wrap: wrap;
   }
 
-  .icon-buttons {
-    @extend %flex-centered;
-  }
   .icon-button {
     @extend %flex-centered;
     width: 40px;

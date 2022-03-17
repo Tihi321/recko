@@ -24,12 +24,12 @@ const PRECACHE_URLS = [
     'manifest.json',
 
     // assets
-    'images/touch/krizko48.png',
-    'images/touch/krizko72.png',
-    'images/touch/krizko96.png',
-    'images/touch/krizko144.png',
-    'images/touch/krizko168.png',
-    'images/touch/krizko192.png',
+    'images/touch/logo48.png',
+    'images/touch/logo72.png',
+    'images/touch/logo96.png',
+    'images/touch/logo144.png',
+    'images/touch/logo168.png',
+    'images/touch/logo192.png',
     'images/favicon.png'
 
 ];
