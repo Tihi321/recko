@@ -1,5 +1,17 @@
 {
   "title": "Recko",
+  "game": {
+    "not_a_word": "nije prava riječ"
+  },
+  "victory": {
+    "title": "Pobjeda",
+    "labels": {
+      "attempts": "Pokušaja"
+    },
+    "button": {
+      "share": "Djeli"
+    }
+  },
   "home": {
     "message": "Dobrodošli ue Recko",
     "labels": {
@@ -20,7 +32,15 @@
       "save": "Spremi"
     },
     "info": {
-      "title": "Info"
+      "title": "Info",
+      "description": {
+        "intro": "Pogodi riječ u šest pokušaja. Svaki pokušaj mora biti valjana riječ. Nakon svakog pokušaja, boja pozadine slova se promjeni, i time pokazuje koliko ste blizu prave riječi",
+        "daily": "Dnevni izazov je limitiran na šest pokušaja po danu. Svaki dan je dostupna nova riječ.",
+        "examples": "Primjeri",
+        "letter_correct": "Slovo W je pogođeno i na pravoj poziciji se nalazi",
+        "letter_incorrect_place": "Slovo O postoji u riječi no nalazi je na pogrešnom mjestu",
+        "wrong_letter": "Slovo R ne postoji u riječi"
+      }
     },
     "settings": {
       "title": "Opcije",

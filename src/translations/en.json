@@ -1,5 +1,17 @@
 {
   "title": "Recko",
+  "game": {
+    "not_a_word": "is not a real word"
+  },
+  "victory": {
+    "title": "Victory",
+    "labels": {
+      "attempts": "Attempts"
+    },
+    "button": {
+      "share": "Share"
+    }
+  },
   "home": {
     "message": "Welcome to Recko",
     "labels": {
@@ -20,7 +32,15 @@
       "save": "Save"
     },
     "info": {
-      "title": "Info"
+      "title": "Info",
+      "description": {
+        "intro": "Guess the word in six tries. Each guess must be a valid word. After each guess, the color of the tiles will change to show how close your guess was to the word.",
+        "daily": "Daily challenge has six tries limit per day. A new word will be available each day.",
+        "examples": "Examples",
+        "letter_correct": "The letter W is in the word and in the correct spot.",
+        "letter_incorrect_place": "Letter O is correct but not in correct place",
+        "wrong_letter": "Letter R not in word"
+      }
     },
     "settings": {
       "title": "Settings",

@@ -1,6 +1,12 @@
 import type { ELanguages, EThemes } from "../constants";
 import type { TWordDetail, TWordsDetail } from "./words";
 
+export type TDailyRestrictionsStore = {
+  date: string;
+  success: boolean;
+  attempts: number;
+};
+
 export type TSettingsStore = {
   theme: EThemes;
   language: ELanguages;

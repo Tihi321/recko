@@ -1,5 +1,5 @@
 import { ELocalStorage } from "../constants";
-import type { TSettingsStore } from "../types";
+import type { TDailyRestrictionsStore, TSettingsStore } from "../types";
 
 export const useLocalStorage = () => {
   const getItem = (key: string) => localStorage.getItem(key);
@@ -19,6 +19,10 @@ export const useLocalStorage = () => {
     return output;
   };
 
+  const getDailyRestriction = () => getJSONItem(ELocalStorage.DailyRestrictions);
+  const setDailyRestriction = (settings: TDailyRestrictionsStore) =>
+    setJSONItem(ELocalStorage.DailyRestrictions, settings);
+
   const getLocalSettings = () => getJSONItem(ELocalStorage.Settings);
   const setLocalSettings = (settings: TSettingsStore) =>
     setJSONItem(ELocalStorage.Settings, settings);
@@ -26,5 +30,7 @@ export const useLocalStorage = () => {
   return {
     getLocalSettings,
     setLocalSettings,
+    getDailyRestriction,
+    setDailyRestriction,
   };
 };

@@ -8,6 +8,7 @@ export enum EThemes {
 }
 
 export enum ELocalStorage {
+  DailyRestrictions = "recko/ts-daily-restrictions",
   Settings = "recko/ts-settings",
 }
 

@@ -1,10 +1,13 @@
+import filter from "lodash/filter";
 import find from "lodash/find";
 import includes from "lodash/includes";
 import indexOf from "lodash/indexOf";
+import isEmpty from "lodash/isEmpty";
 import isEqual from "lodash/isEqual";
 import map from "lodash/map";
 import { combineSelector } from "tsl-utils";
 
+import { EGame } from "../constants";
 import { getRandomArrayItem } from "../utils";
 import {
   getApiWordsArray,
@@ -12,8 +15,17 @@ import {
   getAttemptedWords,
   getAttempts,
   getGameWord,
+  getIsDaily,
+  getSuccess,
   getWordLength,
 } from "./state";
+
+export const getDailyChallengeDisabled = (dailyRestrictionsSelector) =>
+  combineSelector(
+    getSuccess(dailyRestrictionsSelector),
+    getAttempts(dailyRestrictionsSelector),
+    (success, attempts) => success || attempts >= EGame.NumberOfAttempts
+  );
 
 export const getCurrentRow = (gameStateSelector) =>
   combineSelector(
@@ -31,6 +43,17 @@ export const getIsSuccess = (gameStateSelector) =>
     getAttemptedWords(gameStateSelector),
     getGameWord(gameStateSelector),
     (attemptedWords, gameWord) => Boolean(find(attemptedWords, (word) => isEqual(word, gameWord)))
+  );
+
+export const getIsFinished = (gameStateSelector, dailyRestrictionsStateSelector) =>
+  combineSelector(
+    getIsDaily(gameStateSelector),
+    getAttemptedWords(gameStateSelector),
+    getAttemptedWords(dailyRestrictionsStateSelector),
+    (isDailyChallenge, gameAttempts, dailyChallengeAttepts) =>
+      isDailyChallenge
+        ? dailyChallengeAttepts >= EGame.NumberOfAttempts
+        : gameAttempts >= EGame.NumberOfAttempts
   );
 
 export const getRandomApiWord = (apiStateSelector) =>
@@ -57,8 +80,15 @@ export const getNewAttempts = (gameStateSelector, apiStateSelector, letter) =>
         }
         return values;
       });
+      const emptyNewAttempts = filter(newAttempts, (values) => isEmpty(values));
+      const newAttemptsNumber = newAttempts.length - emptyNewAttempts.length;
+
+      const emptyAttempts = filter(attempts, (values) => isEmpty(values));
+      const attemptsNumber = attempts.length - emptyAttempts.length;
+
       return {
         attempts: newAttempts,
+        attemptsUpdated: newAttemptsNumber !== attemptsNumber,
         notWord,
       };
     }

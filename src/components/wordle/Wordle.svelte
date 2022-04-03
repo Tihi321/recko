@@ -1,21 +1,35 @@
 <script lang="ts">
+  import { t } from "svelte-i18n";
   import { onDestroy, onMount } from "svelte";
   import get from "lodash/get";
-  import { useGame, useWordle, useApi } from "../../hooks";
+  import { useGame, useWordle, useApi, useDailyRestrictions } from "../../hooks";
   import { EEvents } from "../../constants";
   import type { TWordleData } from "../../types";
   import Table from "../table/Table.svelte";
   import Keyboard from "../table/Keyboard.svelte";
+  import Victory from "../common/Victory.svelte";
 
-  const { game, addLetter } = useGame();
+  const { game, addLetter, gameFinishedSuccesfully, gameFinished } = useGame();
+  const { dailyRestrictions, setSuccess } = useDailyRestrictions();
   const { api } = useApi();
   const { generateWordleData, getWordType } = useWordle();
 
   $: wordsData = generateWordleData($game) as TWordleData;
   $: wordType = getWordType($game) as string;
+  $: showGameSuccess = gameFinishedSuccesfully($game) as boolean;
+  $: ganmeFinished = gameFinished($game, $dailyRestrictions) as boolean;
+
+  $: hideKeyboard = showGameSuccess || ganmeFinished;
+  $: dailySuccess = showGameSuccess && $game.daily;
+
+  $: {
+    if (dailySuccess) {
+      setSuccess();
+    }
+  }
 
   let showNotWord = false;
-  let notWord = "word";
+  let notWord = "";
 
   const onClick = (event) => {
     const letter: string = get(event, ["detail"]);
@@ -41,12 +55,23 @@
 </script>
 
 <div class="container">
-  <Table data={wordsData.table} />
-  <div class="type">
-    {wordType}
-    <div class="not-real-word" class:show={showNotWord}>{notWord}</div>
+  <div>
+    <Table data={wordsData.table} />
+    <div class="type-container">
+      <div class="type">
+        {wordType}
+      </div>
+      <div class="not-word" class:show={showNotWord}>
+        {`${notWord} - ${$t("game.not_a_word")}`}
+      </div>
+    </div>
+    {#if dailySuccess}
+      <Victory />
+    {/if}
   </div>
-  <Keyboard on:click={onClick} />
+  {#if !hideKeyboard}
+    <Keyboard on:click={onClick} />
+  {/if}
 </div>
 
 <style lang="scss">
@@ -58,11 +83,28 @@
     flex-direction: column;
   }
 
-  .type {
-    margin: 20px 0;
+  .type-container {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
-  .not-real-word {
+  .type,
+  .not-word {
+    @extend %round-button;
+    color: $colored-button-color;
+  }
+
+  .type {
+    background-color: $success-button-bg-color;
+    margin-bottom: 10px;
+  }
+
+  .not-word {
+    background-color: $failure-button-bg-color;
     opacity: 0;
     transition: opacity 0.3s ease;
 

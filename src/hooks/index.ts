@@ -1,3 +1,4 @@
+export * from "./useDailyRestrictions";
 export * from "./useGame";
 export * from "./useLocalSettings";
 export * from "./useModals";

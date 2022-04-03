@@ -3,12 +3,15 @@
   import InfoIcon from "../icons/InfoIcon.svelte";
   import CogIcon from "../icons/CogIcon.svelte";
   import ColoredButton from "../common/ColoredButton.svelte";
-  import { useGame, useModals, useApi } from "../../hooks";
+  import { useGame, useModals, useApi, useDailyRestrictions } from "../../hooks";
   import { EModals } from "../../constants";
 
   const { game, startGame, startDailyChallenge, endGame, resetGame } = useGame();
   const { api } = useApi();
   const { openModal } = useModals();
+  const { dailyRestrictions, getIsDailyDisabled } = useDailyRestrictions();
+
+  $: dailyChallengeDisabled = getIsDailyDisabled($dailyRestrictions);
 
   const openSettingsModal = () => {
     openModal(EModals.Settings);
@@ -25,12 +28,14 @@
     <ul class="menu">
       {#if !$game.started}
         <li class="menu-item">
-          <button class="start-button" on:click={() => startDailyChallenge($api)} on:click
-            >{$t("game_menu.start_daily_game")}</button
+          <button
+            class="start-button"
+            disabled={dailyChallengeDisabled}
+            on:click={() => startDailyChallenge($api)}>{$t("game_menu.start_daily_game")}</button
           >
         </li>
         <li class="menu-item">
-          <button class="start-button" on:click={() => startGame($api)} on:click
+          <button class="start-button" on:click={() => startGame($api)}
             >{$t("game_menu.start_game")}</button
           >
         </li>
@@ -90,6 +95,11 @@
     @extend %round-button;
     color: $button-color;
     border: 2px solid $button-color;
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   }
 
   .menu-item:nth-child(odd) {

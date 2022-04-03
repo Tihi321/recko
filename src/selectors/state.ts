@@ -4,6 +4,12 @@ import map from "lodash/map";
 import split from "lodash/split";
 import { combineSelector } from "tsl-utils";
 
+export const getIsDaily = (gameStateSelector) =>
+  combineSelector(gameStateSelector, (state) => get(state, ["daily"]));
+
+export const getSuccess = (dailyRestrictionsSelector) =>
+  combineSelector(dailyRestrictionsSelector, (state) => get(state, ["success"]));
+
 export const getAttempts = (gameStateSelector) =>
   combineSelector(gameStateSelector, (state) => get(state, ["attempts"]));
 
