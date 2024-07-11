@@ -2,7 +2,7 @@ import { locale } from "svelte-i18n";
 
 import type { ELanguages } from "../constants";
 import { settings } from "../store/settings";
-import type { TSettingsStore } from "../types";
+import type { TDailyRestrictionsStore, TSettingsStore } from "../types";
 import { useApi } from "./useApi";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -10,7 +10,7 @@ export const useSettings = () => {
   const { fetchApiWordsData } = useApi();
   const { set: setLocale } = locale;
   const { subscribe, set, update } = settings;
-  const { setLocalSettings } = useLocalStorage();
+  const { setLocalSettings, setDailyRestriction } = useLocalStorage();
 
   const setState = (newState: TSettingsStore) => {
     setLocalSettings(newState);
@@ -37,5 +37,8 @@ export const useSettings = () => {
       set: (state) => setState(state),
     },
     setLanguage,
+    resetDailyRestriction: () => {
+      setDailyRestriction({} as TDailyRestrictionsStore);
+    },
   };
 };

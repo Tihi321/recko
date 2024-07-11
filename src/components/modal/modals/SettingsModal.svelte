@@ -10,7 +10,7 @@
   import OptionTitle from "../common/OptionTitle.svelte";
 
   const { game } = useGame();
-  const { settings, setLanguage } = useSettings();
+  const { settings, setLanguage, resetDailyRestriction } = useSettings();
 
   const getTranslation = (value) => {
     switch (value) {
@@ -70,10 +70,19 @@
         <Options selected={selectedLanguage} items={languageItems} on:change={onLanguageChange} />
       </div>
     {/if}
-    <div class="option-group">
+    <div class="reset-group">
       <OptionTitle title={$t("modal.settings.labels.theme")} />
       <Options selected={selectedTheme} items={themeItems} on:change={onThemeChange} />
     </div>
+    {#if !$game.started}
+      <button
+        class="reset-button"
+        on:click={() => {
+          resetDailyRestriction();
+          window.location.reload();
+        }}>{$t("modal.settings.labels.reset_daily")}</button
+      >
+    {/if}
   </div>
 </ModalWindow>
 
@@ -81,5 +90,18 @@
   @import "src/styles/all";
   .container {
     padding: 20px 50px;
+  }
+
+  .reset-button {
+    @extend %round-button;
+    color: $button-color;
+    border: 2px solid $button-color;
+    margin-top: 5px;
+    width: 100%;
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   }
 </style>

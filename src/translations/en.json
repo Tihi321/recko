@@ -46,7 +46,8 @@
       "title": "Settings",
       "labels": {
         "language": "Language",
-        "theme": "Theme"
+        "theme": "Theme",
+        "reset_daily": "Reset daily challenge"
       },
       "sub_labels": {
         "theme": {

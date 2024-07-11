@@ -46,7 +46,8 @@
       "title": "Opcije",
       "labels": {
         "language": "Jezik",
-        "theme": "Tema"
+        "theme": "Tema",
+        "reset_daily": "Resetiraj dnevni izazov"
       },
       "sub_labels": {
         "theme": {

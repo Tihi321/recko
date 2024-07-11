@@ -1,10 +1,26 @@
-export const ENGLISH_LETTERS = [
-  ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-  ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-  ["z", "x", "c", "v", "b", "n", "m"],
+export const SHARED_LETTERS = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "z",
 ];
-export const CROATIAN_LETTERS = [
-  ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "š", "đ"],
-  ["a", "s", "d", "f", "g", "h", "j", "k", "l", "č", "ć", "ž"],
-  ["z", "x", "c", "v", "b", "n", "m"],
-];
+export const ENGLISH_LETTERS = ["q", "w", "x", "y"];
+export const CROATIAN_LETTERS = ["ć", "č", "đ", "š", "ž"];
