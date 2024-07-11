@@ -10,9 +10,20 @@
   const onClick = (letter: string) => {
     dispatch("click", letter);
   };
+
+  const handleKeypress = (event: KeyboardEvent) => {
+    const letter = event.key.toLowerCase();
+    if (
+      ENGLISH_LETTERS.includes(letter) ||
+      CROATIAN_LETTERS.includes(letter) ||
+      SHARED_LETTERS.includes(letter)
+    ) {
+      dispatch("click", letter);
+    }
+  };
 </script>
 
-<div class="table">
+<div class="table" tabindex="0" on:keydown={handleKeypress}>
   {#each SHARED_LETTERS as letter}
     <div class="letter" on:click={() => onClick(letter)}>
       <Letter {letter} neutral={true} />
@@ -31,6 +42,7 @@
       </div>
     {/each}
   {/if}
+  <div class="side"></div>
 </div>
 
 <style lang="scss">
@@ -41,6 +53,8 @@
     display: flex;
     flex-wrap: wrap;
     max-width: 450px;
+    border: 2px solid $button-color;
+    border-radius: 5px;
   }
 
   .letter {
